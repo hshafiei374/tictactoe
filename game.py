@@ -3,6 +3,7 @@ from player import HumanPlayer, RandomComputerPlayer
 import time
 class TicTacToe:
     def __init__(self, length=3):
+        lengt = 9 if length>9 else int(length)
         #how create a list with for loop
         self.board = [' ' for _ in range(length*length)] # we will use a single list to rep 3*3 board
         self.length = length
@@ -20,21 +21,24 @@ class TicTacToe:
         #fastest way
         i=0
         for row in [self.board[i*self.length:(i+1)*self.length] for i in range(self.length)]:
-            new_board = []
+            new_row = []
             for index, value in enumerate(row):
                if value=='X' or value == 'O':
-                   new_board.append(value)
+                   new_row.append(value+" ")
                else:
-                   new_board.append(str(index+i))
-            print('| ' + ' | '.join(new_board) + ' |')
-            i+=3
-
-
-    def print_board_nums(self):
-        # 0 | 1 | 3 etc (tells us what number corresponds to what box)
-        for row in [[str(i) for i in range(j*self.length, (j+1)*self.length)] for j in range(self.length)]:
-            print('| ' + ' | '.join(row) + ' |')
-
+                    new_row.append(str(index+i))
+            
+            #print(new_row)
+            #print('| ' + ' | '.join(new_row) + ' |')
+            i+=self.length
+        
+        for index, value in enumerate(self.board):
+            if index<10:
+                print(str(index)+" ", end=" | ")
+            else:
+                print(index, end=" | ")
+            if (index+1) % 9 == 0 :
+                print()#next line
 
     #give me free space in board
     def available_moves(self):
@@ -87,7 +91,7 @@ class TicTacToe:
 
 def play(game, x_player, o_player, print_game=True):
     if print_game:
-        game.print_board_nums()
+        game.print_board()
     letter = 'X' #starting letter
     # iterate while the game still has empty suares
     # (we don't have to worry about winner because we'll just return that
@@ -118,6 +122,6 @@ def play(game, x_player, o_player, print_game=True):
 if __name__ == '__main__':
     x_player = HumanPlayer('X')
     o_player = HumanPlayer('O')
-    game = TicTacToe(4)
+    game = TicTacToe(9)
 
     play(game, x_player, o_player, True)
