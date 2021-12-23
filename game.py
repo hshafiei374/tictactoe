@@ -10,28 +10,6 @@ class TicTacToe:
         self.current_winner = None # keep track of winner!
 
     def print_board(self):
-        #sloewst way
-        # rows = []
-        # for i in range(3):
-        #     rows.append(self.board[i*3:(i+1)*3]) 
-        # for row in rows:
-        #    #string.join(array) example: '.'.join([1,2,3]) => '1.2.3'
-        #    print('| ' + ' | '.join(row) + ' |')
-
-        #fastest way
-        i=0
-        for row in [self.board[i*self.length:(i+1)*self.length] for i in range(self.length)]:
-            new_row = []
-            for index, value in enumerate(row):
-               if value=='X' or value == 'O':
-                   new_row.append(value+" ")
-               else:
-                    new_row.append(str(index+i))
-            
-            #print(new_row)
-            #print('| ' + ' | '.join(new_row) + ' |')
-            i+=self.length
-        
         for index, value in enumerate(self.board):
             if index<10:
                 print(str(index)+" ", end=" | ")
